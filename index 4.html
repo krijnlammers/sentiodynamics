@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sentio Dynamics — Stop kapitaalvernietiging door de 90-dagen draaideur</title>
+  <meta name="description" content="Sentio Dynamics maakt onboarding bestuurbaar: binnen 14 dagen een Risk Snapshot, Draft Pack en Accountability Log." />
+  <meta property="og:title" content="Sentio Dynamics — Stop kapitaalvernietiging door de 90-dagen draaideur" />
+  <meta property="og:description" content="Onboarding Pulse: Risk Snapshot, Draft Pack, Accountability Log. Geen dashboard — wél control." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0B1220" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="topbar-spacer"></div>
+
+      <a class="brand" href="#top" aria-label="Sentio Dynamics Home">
+        <span class="brand-name">SENTIO DYNAMICS</span>
+      </a>
+
+      <a class="topbar-link" href="#intake" data-cta="intake">INTAKE AANVRAGEN</a>
+
+      <button class="mobile-toggle" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <div class="mobile-nav" aria-hidden="true">
+      <a href="#reality">De harde realiteit</a>
+      <a href="#trajectory">Traject</a>
+      <a href="#assistent">Assistant</a>
+      <a href="#trust">Trust framework</a>
+      <a href="#intake" data-cta="intake">Intake aanvragen</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO (dark) -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="badge" id="foundingBadge">
+          <span class="badge-dot" aria-hidden="true"></span>
+          <span class="badge-text">FOUNDING15 PROGRAMMA: OPEN (<span id="filledCount">3</span>/<span id="totalCount">15</span> PLEKKEN BEZET)</span>
+        </div>
+
+        <h1>Stop kapitaalvernietiging<br/>door de 90-dagen<br/>draaideur.</h1>
+
+        <p class="hero-sub">
+          Sentio Dynamics maakt onboarding bestuurbaar in de eerste 90 dagen: frictie vroeg zichtbaar,
+          manager‑acties als drafts, en auditbare borging — zonder extra dashboard-werk.
+          <span class="hero-sub-2">Onboarding Pulse levert binnen ≤14 dagen: <strong>Risk Snapshot</strong>, <strong>Draft Pack</strong> en <strong>Accountability Log</strong> (scenario‑based, ).</span>
+        </p>
+
+        <div class="hero-cta" id="intake">
+          <a class="btn-gold" href="#" data-cta="intake">VRAAG EEN VERTROUWELIJKE INTAKE AAN</a>
+        </div>
+
+        <div class="hero-trust">
+          <div class="trust-pill">COMPLIANCE-FIRST</div>
+          <div class="trust-pill">COGNITIVE SCIENCE BASED</div>
+          <div class="trust-pill">PRIVACY BY DESIGN</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REALITY + CALCULATOR (light) -->
+    <section class="section light" id="reality">
+      <div class="container split">
+        <div class="split-left">
+          <div class="eyebrow">DE HARDE REALITEIT</div>
+          <h2>U verliest talent.<br/>U verliest runway.</h2>
+
+          <p class="muted">
+            Elke early-exit in de eerste 90 dagen is een P&L-risico: wervingskosten, inwerktijd,
+            productiviteitsverlies en teambelasting. Gebruik de calculator als snelle indicatie.
+          </p>
+
+          <p class="fine">
+            *Indicatie (scenario). ; gebruik bandbreedtes conform Claims Policy.
+          </p>
+        </div>
+
+        <div class="split-right">
+          <div class="calc-card">
+            <div class="calc-row">
+              <div class="calc-label">AANTAL AANNAMES DIT JAAR</div>
+              <div class="calc-input">
+                <button class="step" data-step="-1" aria-label="min">−</button>
+                <input id="hires" type="number" min="1" max="500" value="50" />
+                <button class="step" data-step="1" aria-label="plus">+</button>
+              </div>
+            </div>
+
+            <div class="calc-grid">
+              <label class="field">
+                <span>Kost per early-exit (€)</span>
+                <input id="cost" type="number" min="5000" step="500" value="61500" />
+              </label>
+              <label class="field">
+                <span>Early-exit rate (0–100%)</span>
+                <input id="rate" type="number" min="0" max="100" step="1" value="25" />
+              </label>
+            </div>
+
+            <div class="calc-result">
+              <div class="calc-label red">GESCHAT RISICO OP KAPITAALVERNIETIGING</div>
+              <div class="calc-value" id="riskValue">€ 768.750</div>
+              <div class="calc-note">Dit is geen HR-budget issue. Dit is een strategisch P&L-risico.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRAJECT (light) -->
+    <section class="section light" id="trajectory">
+      <div class="container center">
+        <div class="eyebrow">HET HYBRIDE TRAJECT</div>
+        <h2>Van Analyse naar Borging.</h2>
+        <p class="muted section-lead">Menselijke expertise gecombineerd met schaalbare technologie — met bewijsbare output binnen 14 dagen.</p>
+
+        <div class="cards-4">
+          <div class="card">
+            <div class="card-icon">◎</div>
+            <div class="card-title">Onboarding Pulse</div>
+            <div class="card-text">Risk Snapshot, Draft Pack &amp; Accountability Log (≤ 14 dagen). Start met Lane 1 (Hygiene); unlock Lane 2 (Performance) bij cohort ≥ 5.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">≡</div>
+            <div class="card-title">Manager Actieplan</div>
+            <div class="card-text">Max. 3 causale interventies per kritieke rol. Managers doen alleen review/goedkeuring — Sentio levert de drafts.</div>
+          </div>
+          <div class="card">
+            <div class="card-icon">⋯</div>
+            <div class="card-title">Begeleide Implementatie</div>
+            <div class="card-text">Borging met HR &amp; lijn: escalatie‑regels + <strong>Continuity Owner</strong> (Manager Zero proxy) als non‑negotiable bij afwezigheid.</div>
+          </div>
+          <div class="card card-dark">
+            <div class="card-icon">▣</div>
+            <div class="card-title">Platform Launch</div>
+            <div class="card-text">Uw data wordt canon: data dictionary, logging discipline en een pad naar Engine 2 zodra de gates consistent gehaald worden.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ASSISTANT (light) -->
+    <section class="section light" id="assistent">
+      <div class="container center">
+        <h2>Geen dashboard, maar een assistent.</h2>
+
+        <div class="steps">
+          <div class="stepcol">
+            <div class="stepnum">1</div>
+            <div class="steptitle">METEN</div>
+            <div class="steptext">Nieuwe medewerker vult een korte cognitive check-in in (drivers, niet “emoties”).</div>
+          </div>
+          <div class="stepcol">
+            <div class="stepnum">2</div>
+            <div class="steptitle">DETECTEREN</div>
+            <div class="steptext">De Impact Engine signaleert frictie vóórdat het escaleert.</div>
+          </div>
+          <div class="stepcol stepcol-accent">
+            <div class="stepnum">3</div>
+            <div class="steptitle">NUDGE</div>
+            <div class="steptext">De manager krijgt een concrete draft:</div>
+            <div class="quote">Plan morgen een korte 1-op-1 check-in.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRUST (dark) -->
+    <section class="section dark" id="trust">
+      <div class="container">
+        <div class="trust-head">
+          <h2>Compliance-by-design voor Europese organisaties.</h2>
+          <div class="trust-tag">TRUST FRAMEWORK</div>
+        </div>
+
+        <div class="trust-cards">
+          <div class="trust-card">
+            <div class="trust-kicker">01. COMPLIANCE</div>
+            <div class="trust-title">Compliance-first</div>
+            <div class="trust-text">AI Act‑aligned in Employment context (Annex III): geen emotieherkenning, geen biometrie, geen individuele scoring. Output is cohort‑geaggregeerd en auditbaar.</div>
+          </div>
+          <div class="trust-card">
+            <div class="trust-kicker">02. WETENSCHAP</div>
+            <div class="trust-title">Wetenschappelijke basis</div>
+            <div class="trust-text">Gebouwd op Self-Determination Theory (SDT) en causal-first interventies.</div>
+          </div>
+          <div class="trust-card">
+            <div class="trust-kicker">03. PRIVACY</div>
+            <div class="trust-title">Privacy-first</div>
+            <div class="trust-text">Lane 2 (kwalitatieve bronnen) unlockt pas bij <strong>cohort ≥ 5</strong> + DPA + PII-scrub. Lane 1 start direct met hygiëne/metadata. Cohort‑aggregatie is standaard.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXCLUSIVITY + ELIGIBILITY (light) -->
+    <section class="section light" aria-label="Exclusiviteit">
+      <div class="container">
+        <div class="invite">
+          <div class="invite-left">
+            <div class="tag">EXCLUSIVITEIT</div>
+            <h2>Alleen op uitnodiging..</h2>
+            <p class="muted">Wij werken met een strikt gelimiteerde groep partners, zodat delivery en kwaliteit niet verwateren.</p>
+
+            <ul class="bullets">
+              <li><span class="bullet-dot"></span> Maximaal <strong>15</strong> partners.</li>
+              <li><span class="bullet-dot"></span> Founding partners krijgen <strong>legacy voorwaarden</strong> (exclusief voordeel).</li>
+              <li><span class="bullet-dot"></span> Directe invloed op de roadmap.</li>
+            </ul>
+          </div>
+
+          <div class="invite-right">
+            <div class="eligibility">
+              <div class="elig-head">Check eligibility</div>
+              <button class="elig-item" data-segment="50-250">50 - 250 FTE <span>→</span></button>
+              <button class="elig-item elig-recommended" data-segment="250-500">250 - 500 FTE <span>→</span></button>
+              <button class="elig-item" data-segment="500+">500+ FTE <span>→</span></button>
+
+              <div class="elig-result" id="eligResult">
+                <div class="elig-title">250–500 FTE (Mid‑Market Scale‑Up): ideale fit.</div>
+                <div class="elig-text">Start met Onboarding Pulse (≤14 dagen) en schaal door naar borging. Professional Services (100–500 FTE met traineeships) kan ook passen bij consistente cohorten.</div>
+                <a class="btn-gold btn-inline" href="#" data-cta="intake">Start intake</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-cta">
+          <h3></h3>
+          <a class="link" href="#" data-cta="intake">Vraag een vertrouwelijke intake aan</a>
+          <div class="footerline">SENTIO DYNAMICS <span class="sep">|</span> AMSTERDAM</div>
+          <div class="footerline faint">MSc Psychologie & Performance Architecture</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Intake aanvragen">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card">
+      <button class="modal-close" aria-label="Close" data-close>×</button>
+      <div class="modal-tag">VERTRUWELIJKE INTAKE</div>
+      <h3>Intake aanvragen</h3>
+      <p class="muted">
+        Uw intake is vertrouwelijk. We toetsen eerst fit op ICP & intake gates (Sponsor Triad, cohort ≥ 5 voor Lane 2, DPA/PII-scrub). Daarna plannen we een korte intake-call of starten we per e‑mail.
+      </p>
+      <div class="modal-actions">
+        <a class="btn-gold btn-full" href="#" id="bookLink">Plan intake</a>
+        <a class="btn-ghost btn-full" href="#" id="emailLink">E-mail</a>
+      </div>
+      <p class="fine">Geen formulieren, geen tracking. Alleen een discrete intake.</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
