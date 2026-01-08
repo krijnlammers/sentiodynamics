@@ -1,0 +1,1 @@
+Versie 3.0: Geoptimaliseerd voor Sponsor Triad governance, Agentic Engine compliance (HITL) en PII-scrubbing protocollen conform Masterplan v5.1.
