@@ -1,190 +1,153 @@
-// Sentio Dynamics landing — no dependencies
+// Sentio Dynamics — Versie 6.3 Financiële Pijn & Gatekeeper
 const CONFIG = {
-  // Set your booking link here (Cal.com / Calendly). If empty, we fall back to email.
-  BOOKING_URL: "",
-  CONTACT_EMAIL: "hello@sentiodynamics.com", // TODO: change to your real inbox
-  EMAIL_SUBJECT: "Vertrouwelijke intake — Sentio Dynamics",
-  EMAIL_BODY:
-`Hoi Krijn,
+  CONTACT_EMAIL: "hello@sentiodynamics.com",
+  EMAIL_SUBJECT: "Intake-aanvraag Sentio Dynamics (Fit & Governance)",
+  EMAIL_BODY: `Beste Krijn,
 
-Ik wil een vertrouwelijke intake aanvragen voor Sentio Dynamics (Onboarding Pulse).
+Graag plannen we een vertrouwelijke intake in om de mogelijkheden van de Onboarding Pulse te verkennen. 
 
-1) Organisatie
-- Naam organisatie:
-- Website:
-- Sector (scale-up / professional services / anders):
-- Aantal FTE:
-- Aantal aannames per jaar (verwacht):
+We willen graag de volgende kaders toetsen conform het Mobilisatie-model:
 
-2) Fit & governance (Intake gates)
-- Sponsor Triad: wie zijn Exec / HR / Operations sponsor?
-- Cohortgrootte per cluster/team (doel: ≥ 5):
-- Is een DPA mogelijk (privacy/legal)?
-- Kunnen jullie PII scrubben vóór aanlevering?
+1) Governance (Sponsor Triad)
+- Beoogde Executive Sponsor: 
+- Beoogde HR Sponsor: 
+- Beoogde Ops Sponsor: 
 
-3) Context
-- Waar gaat het mis in de eerste 90 dagen?
-- Kritieke rollen (top 3):
-- Huidige early-exit % (90 dagen) (optioneel / schatting):
+2) Data Scope
+- Organisatieomvang (FTE): 
+- Geschat kwartaal-cohort (n): 
 
-4) Praktisch
-- Voorkeur voor intake-call (2 opties):
-- Contactpersoon + telefoon:
+Ik hoor graag wanneer een korte afstemming schikt.
 
-Dank!
-`
+Met vriendelijke groet,`
 };
 
-// ---- Modal / CTA
+
+// --- Modal & CTA Logic ---
 const modal = document.getElementById("modal");
-const bookLink = document.getElementById("bookLink");
 const emailLink = document.getElementById("emailLink");
 
-function openModal(label){
+function openModal() {
+  if(!modal) return;
   modal.classList.add("show");
   modal.setAttribute("aria-hidden", "false");
-
-  if(label){
-    document.querySelector(".modal-tag").textContent = label;
-  }
-
-  const hasBooking = CONFIG.BOOKING_URL && CONFIG.BOOKING_URL.includes("http");
-  bookLink.href = hasBooking ? CONFIG.BOOKING_URL : mailtoHref();
-  bookLink.textContent = hasBooking ? "Open booking" : "Open e-mail";
-
-  emailLink.href = mailtoHref();
+  const subject = encodeURIComponent(CONFIG.EMAIL_SUBJECT);
+  const body = encodeURIComponent(CONFIG.EMAIL_BODY);
+  emailLink.href = `mailto:${CONFIG.CONTACT_EMAIL}?subject=${subject}&body=${body}`;
 }
 
-function closeModal(){
+function closeModal() {
+  if(!modal) return;
   modal.classList.remove("show");
   modal.setAttribute("aria-hidden", "true");
 }
 
-function mailtoHref(){
-  const subject = encodeURIComponent(CONFIG.EMAIL_SUBJECT);
-  const body = encodeURIComponent(CONFIG.EMAIL_BODY);
-  return `mailto:${CONFIG.CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-}
-
-document.querySelectorAll('[data-cta="intake"]').forEach((el)=>{
-  el.addEventListener("click", (e)=>{
-    e.preventDefault();
-    openModal("VERTRUWELIJKE INTAKE — FIT & SCOPE");
-  });
+document.querySelectorAll('[data-cta="intake"]').forEach(el => {
+  el.addEventListener("click", (e) => { e.preventDefault(); openModal(); });
 });
 
-document.querySelectorAll("[data-close]").forEach((el)=>{
-  el.addEventListener("click", (e)=>{
-    e.preventDefault();
-    closeModal();
-  });
+document.querySelectorAll('[data-close]').forEach(el => {
+  el.addEventListener("click", closeModal);
 });
 
-document.addEventListener("keydown", (e)=>{
-  if(e.key === "Escape" && modal.classList.contains("show")) closeModal();
-});
-
-// ---- Mobile nav
-const toggle = document.querySelector(".mobile-toggle");
-const mobileNav = document.querySelector(".mobile-nav");
-if(toggle){
-  toggle.addEventListener("click", ()=>{
-    const open = mobileNav.classList.toggle("show");
-    toggle.setAttribute("aria-expanded", open ? "true" : "false");
-    mobileNav.setAttribute("aria-hidden", open ? "false" : "true");
-  });
-}
-document.querySelectorAll(".mobile-nav a").forEach((a)=>{
-  a.addEventListener("click", ()=>{
-    mobileNav.classList.remove("show");
-    toggle?.setAttribute("aria-expanded","false");
-  });
-});
-
-// ---- Founding badge
-(function(){
-  const filled = document.getElementById("filledCount");
-  const total = document.getElementById("totalCount");
-  const badge = document.getElementById("foundingBadge");
-
-  if(!filled || !total || !badge) return;
-
-  if(parseInt(filled.textContent,10) >= parseInt(total.textContent,10)){
-    badge.style.display = "none";
-  }
-})();
-
-// ---- Calculator
+// --- ROI Calculator Logic (v6.3: Factor 5.0 voor Replacement) ---
 const hiresEl = document.getElementById("hires");
-const costEl = document.getElementById("cost");
+const salaryEl = document.getElementById("salary");
 const rateEl = document.getElementById("rate");
+const hireTypeEl = document.getElementById("hireType");
 const riskEl = document.getElementById("riskValue");
+const warningEl = document.getElementById("replacementWarning");
 
-function formatEUR(n){
-  const rounded = Math.round(n);
-  return "€ " + rounded.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+function formatEUR(n) {
+  return "€ " + Math.round(n).toLocaleString('nl-NL');
 }
 
-function clamp(num, min, max){ return Math.min(Math.max(num, min), max); }
+function computeRisk() {
+  if(!hiresEl || !salaryEl || !rateEl || !riskEl) return;
 
-function computeRisk(){
-  const hires = clamp(parseFloat(hiresEl.value || "0"), 1, 500);
-  const cost = clamp(parseFloat(costEl.value || "0"), 0, 5_000_000);
-  const rate = clamp(parseFloat(rateEl.value || "0"), 0, 100) / 100;
+  const hires = parseFloat(hiresEl.value || 0);
+  const salary = parseFloat(salaryEl.value || 0);
+  const rate = parseFloat(rateEl.value || 0) / 100;
+  const type = hireTypeEl.value;
 
-  const risk = hires * cost * rate;
-  riskEl.textContent = formatEUR(risk);
+  let riskFactor = 3.5;
+  if (type === 'replacement') {
+    riskFactor = 5.0;
+    warningEl.style.display = 'block';
+  } else {
+    warningEl.style.display = 'none';
+  }
+
+  const totalRisk = hires * rate * (salary * riskFactor);
+  riskEl.textContent = formatEUR(totalRisk);
 }
 
-[hiresEl, costEl, rateEl].forEach((el)=>{
-  el?.addEventListener("input", computeRisk);
-});
+[hiresEl, salaryEl, rateEl, hireTypeEl].forEach(el => el?.addEventListener("input", computeRisk));
+[hiresEl, salaryEl, rateEl, hireTypeEl].forEach(el => el?.addEventListener("change", computeRisk));
 
-document.querySelectorAll(".step").forEach((btn)=>{
-  btn.addEventListener("click", ()=>{
-    const delta = parseInt(btn.getAttribute("data-step"), 10) || 0;
-    hiresEl.value = clamp(parseInt(hiresEl.value || "1", 10) + delta, 1, 500);
+document.querySelectorAll(".step").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const delta = parseInt(btn.getAttribute("data-step"));
+    hiresEl.value = Math.max(1, parseInt(hiresEl.value || 0) + delta);
     computeRisk();
   });
 });
 
-computeRisk();
-
-// ---- Eligibility selector
+// --- Eligibility Logic (Poortwachter) ---
 const eligButtons = document.querySelectorAll(".elig-item");
 const eligResult = document.getElementById("eligResult");
 
-function setElig(segment){
+function setElig(segment) {
   eligButtons.forEach(b => b.classList.toggle("active", b.dataset.segment === segment));
   if(!eligResult) return;
 
-  if(segment === "250-500"){
-    eligResult.innerHTML = `
-      <div class="elig-title">250–500 FTE: ideale fit.</div>
-      <div class="elig-text">Start met Onboarding Pulse (14 dagen) en schaal door naar borging.</div>
-      <a class="btn-gold btn-inline" href="#" data-cta="intake">Start intake</a>
-    `;
-  } else if(segment === "50-250"){
-    eligResult.innerHTML = `
-      <div class="elig-title">50–250 FTE: mogelijk fit.</div>
-      <div class="elig-text">We kunnen starten, maar alleen bij voldoende instroom (cohort) en sponsor-commitment.</div>
-      <a class="btn-gold btn-inline" href="#" data-cta="intake">Vraag intake aan</a>
-    `;
-  } else {
-    eligResult.innerHTML = `
-      <div class="elig-title">500+ FTE: selectief.</div>
-      <div class="elig-text">We doen dit alleen als governance & privacy-voorwaarden snel rond zijn (OR/Legal).</div>
-      <a class="btn-gold btn-inline" href="#" data-cta="intake">Vraag intake aan</a>
-    `;
+  let html = "";
+  switch(segment) {
+    case "<50":
+      html = `
+        <div class="elig-title" style="color: #e11d48;">ROOD: Buiten Scope</div>
+        <div class="elig-text">Vanwege "Data Sparsity" kunnen wij geen betrouwbare Agentic Drafts genereren voor organisaties onder de 50 FTE.</div>
+      `;
+      break;
+    case "50-250":
+      html = `
+        <div class="elig-title" style="color: #f59e0b;">ORANJE: Beperkt</div>
+        <div class="elig-text">Risico op "Service Trap". Start alleen mogelijk bij bewezen cohort ≥ 5 en Sponsor Triad commitment.</div>
+        <a class="btn-gold btn-inline" href="#" id="dynamicIntakeBtn">Vraag intake aan</a>
+      `;
+      break;
+    case "250-500":
+      html = `
+        <div class="elig-title" style="color: #10b981;">GROEN: Ideale Fit</div>
+        <div class="elig-text">Mid-Market Scale-Up. Optimale balans voor Engine 2. Start direct met de Onboarding Pulse.</div>
+        <a class="btn-gold btn-inline" href="#" id="dynamicIntakeBtn">Start intake</a>
+      `;
+      break;
+    case "500+":
+      html = `
+        <div class="elig-title" style="color: #f59e0b;">ORANJE: Selectief</div>
+        <div class="elig-text">Vanwege Cashflow Risk uitsluitend na juridische pre-approval op DPA en Kick-off Fee.</div>
+        <a class="btn-gold btn-inline" href="#" id="dynamicIntakeBtn">Toets beschikbaarheid</a>
+      `;
+      break;
   }
-
-  // re-bind CTA inside injected HTML
-  eligResult.querySelectorAll('[data-cta="intake"]').forEach((el)=>{
-    el.addEventListener("click", (e)=>{ e.preventDefault(); openModal(); });
-  });
+  eligResult.innerHTML = html;
+  const dynamicBtn = document.getElementById("dynamicIntakeBtn");
+  if(dynamicBtn) dynamicBtn.addEventListener("click", (e) => { e.preventDefault(); openModal(); });
 }
 
-eligButtons.forEach((b)=>{
-  b.addEventListener("click", ()=> setElig(b.dataset.segment));
+eligButtons.forEach(b => b.addEventListener("click", () => setElig(b.dataset.segment)));
+
+document.addEventListener("DOMContentLoaded", () => {
+  setElig("250-500");
+  computeRisk();
 });
-setElig("250-500");
+
+document.addEventListener("DOMContentLoaded", () => {
+  const currentFilled = 3; // De centrale bron voor de status
+  const heroFilled = document.getElementById("filledCount");
+  const finaleFilled = document.getElementById("filledCountFinale");
+
+  if(heroFilled) heroFilled.textContent = currentFilled;
+  if(finaleFilled) finaleFilled.textContent = currentFilled;
+});
