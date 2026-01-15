@@ -62,12 +62,26 @@ body{
 .mobile-toggle{
   display:none;
   justify-self:end;
-  width:44px;height:40px;
+  width:44px;
+  height:40px;
   border-radius:12px;
   background:rgba(255,255,255,0.06);
   border:1px solid rgba(255,255,255,0.10);
   cursor:pointer;
-  margin-right: 12px;
+}
+
+/* Desktop: visuele balans */
+@media (min-width: 761px){
+  .mobile-toggle{
+    margin-right: 20px;
+  }
+}
+
+/* Mobile: iets subtieler */
+@media (max-width: 760px){
+  .mobile-toggle{
+    margin-right: 12px;
+  }
 }
 .mobile-toggle span{
   display:block;
