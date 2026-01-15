@@ -67,6 +67,7 @@ body{
   background:rgba(255,255,255,0.06);
   border:1px solid rgba(255,255,255,0.10);
   cursor:pointer;
+  margin-right: 12px;
 }
 .mobile-toggle span{
   display:block;
