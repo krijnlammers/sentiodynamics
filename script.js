@@ -1,21 +1,16 @@
 // Sentio Dynamics — Versie 6.3 Financiële Pijn & Gatekeeper
 const CONFIG = {
   CONTACT_EMAIL: "hello@sentiodynamics.com",
-  EMAIL_SUBJECT: "Intake-aanvraag Sentio Dynamics (Fit & Governance)",
+  EMAIL_SUBJECT: "Intake-aanvraag Sentio Dynamics (Onboarding Pulse)",
   EMAIL_BODY: `Beste Krijn,
 
-Graag plannen we een vertrouwelijke intake in om de mogelijkheden van de Onboarding Pulse te verkennen. 
+Graag plannen we een vertrouwelijke intake in om de Onboarding Pulse te verkennen.
 
-We willen graag de volgende kaders toetsen conform het Mobilisatie-model:
-
-1) Governance (Sponsor Triad)
-- Beoogde Executive Sponsor: 
-- Beoogde HR Sponsor: 
-- Beoogde Ops Sponsor: 
-
-2) Data Scope
-- Organisatieomvang (FTE): 
-- Geschat kwartaal-cohort (n): 
+Om goed voor te bereiden, delen we alvast:
+- Organisatieomvang (FTE):
+- Teams/rollen in scope:
+- Instroom per kwartaal (aantal aannames):
+- Gemiddelde early-exit inschatting (optioneel):
 
 Ik hoor graag wanneer een korte afstemming schikt.
 
@@ -112,7 +107,7 @@ function setElig(segment) {
     case "50-250":
       html = `
         <div class="elig-title" style="color: #f59e0b;">ORANJE: Beperkt</div>
-        <div class="elig-text">Risico op "Service Trap". Start alleen mogelijk bij bewezen cohort ≥ 5 en Sponsor Triad commitment.</div>
+        <div class="elig-text">Werkt vooral bij terugkerende instroom en duidelijke scope (teams/rollen). Cohortmeting (n ≥ 5) is nodig voor diepere SDT-inzichten.</div>
         <a class="btn-gold btn-inline" href="#" id="dynamicIntakeBtn">Vraag intake aan</a>
       `;
       break;
@@ -126,7 +121,7 @@ function setElig(segment) {
     case "500+":
       html = `
         <div class="elig-title" style="color: #f59e0b;">ORANJE: Selectief</div>
-        <div class="elig-text">Vanwege Cashflow Risk uitsluitend na juridische pre-approval op DPA en Kick-off Fee.</div>
+        <div class="elig-text">Werkt goed als scope en besluitvorming vooraf helder zijn (welke teams/rollen, wie accordeert acties).</div>
         <a class="btn-gold btn-inline" href="#" id="dynamicIntakeBtn">Toets beschikbaarheid</a>
       `;
       break;
@@ -150,4 +145,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if(heroFilled) heroFilled.textContent = currentFilled;
   if(finaleFilled) finaleFilled.textContent = currentFilled;
+});
+
+
+
+/* v6.14.2 PATCH: mobile menu toggle (hamburger) */
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.querySelector(".mobile-toggle");
+  const nav = document.querySelector(".mobile-nav");
+
+  if (!toggle || !nav) return;
+
+  toggle.addEventListener("click", function () {
+    const isOpen = nav.classList.toggle("show");
+    toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    nav.setAttribute("aria-hidden", isOpen ? "false" : "true");
+  });
+
+  // close menu when a link is clicked
+  nav.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", function () {
+      nav.classList.remove("show");
+      toggle.setAttribute("aria-expanded", "false");
+      nav.setAttribute("aria-hidden", "true");
+    });
+  });
 });

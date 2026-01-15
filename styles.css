@@ -41,25 +41,12 @@ body{
   backdrop-filter: blur(14px);
 }
 
-.topbar-inner{
-  display:grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items:center;
-  padding:16px 0;
-  gap:14px;
+/* Ensure mobile toggle stays on the first row (right side) */
+.mobile-toggle{
+  grid-column:3;
+  grid-row:1;
 }
 
-.topbar-spacer{height:1px}
-
-.brand{
-  justify-self:center;
-  text-decoration:none;
-  color:rgba(255,255,255,0.86);
-  letter-spacing:3px;
-  font-size:12px;
-  font-weight:500;
-}
-.brand-name{white-space:nowrap}
 
 .topbar-link{
   justify-self:end;
@@ -581,9 +568,7 @@ h2{
   h1{font-size:52px}
 }
 
-@media (max-width: 760px){
-  .topbar-inner{grid-template-columns: 1fr auto 1fr}
-  .topbar-link{display:none}
+
   .mobile-toggle{display:block}
   .mobile-nav{display:none}
   .mobile-nav.show{display:block}
@@ -1050,3 +1035,66 @@ h2{
 .trust-pill-subtle { font-weight: 500; }
 .pill-sep { color: rgba(255,255,255,0.15); }
 
+
+/* Topbar Layout Update */
+
+
+
+
+
+/* Spacer verwijderen omdat we nu flexbox space-between gebruiken */
+.topbar-spacer { display: none; }
+
+@media (max-width: 760px) {
+    }
+
+
+/* v6.13 Canon Branding */
+
+.topbar-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.brand:hover { opacity: 0.8; }
+
+.brand-logo-img {
+  height: 26px;
+  width: auto;
+  display: block;
+}
+
+.brand-name {
+  letter-spacing: 2.5px;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.95);
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .brand-name { font-size: 11px; letter-spacing: 1.5px; }
+  .brand-logo-img { height: 22px; }
+}
+
+
+/* v6.14.2 PATCH: center topbar intake link without moving brand */
+.topbar-inner{ position: relative; }
+.topbar-link{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+@media (max-width: 760px){
+  .topbar-link{ display:none; }
+}
