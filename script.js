@@ -171,3 +171,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const toggle = document.querySelector(".hamburger, .menu-toggle");
+  const menu = document.querySelector(".nav-links, .mobile-menu");
+
+  if (toggle && menu) {
+    toggle.addEventListener("click", function () {
+      menu.classList.toggle("open");
+    });
+  }
+});
